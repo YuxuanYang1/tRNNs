@@ -1,4 +1,4 @@
-# cowi.py 损失对比绘图独立窗口
+# cowi.py
 import os
 import numpy as np
 from PyQt5.QtWidgets import (

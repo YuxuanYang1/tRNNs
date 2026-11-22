@@ -1,4 +1,4 @@
-# basernn.py CharRNN公共基类
+# basernn.py
 import numpy as np
 import random
 
