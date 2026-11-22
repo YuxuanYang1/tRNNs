@@ -8,7 +8,7 @@ from PyQt5.QtGui import QFont
 from mwe import NamesWindow
 from mwp import PoemsWindow
 from mwl import LogicWindow
-from coan_window import CoanPlotWindow
+from cowi import CoanPlotWindow
 from infos import rebuild_info
 
 
