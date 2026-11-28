@@ -1,0 +1,73 @@
+name: Build GUI EXE
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.8'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pyinstaller PyQt5 matplotlib numpy
+
+    - name: Build with PyInstaller
+      run: |
+        pyinstaller --onedir --noupx --noconsole ^
+          --collect-all matplotlib ^
+          --collect-all PyQt5 ^
+          --exclude-module matplotlib.tests ^
+          --icon=app.ico ^
+          --version-file=version.txt ^
+          --name=tRNNs ^
+          root/main.py
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: tRNNs-Windows
+        path: dist/tRNNs/
+        include-hidden-files: true
+
+    build-macos:
+    runs-on: macos-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.8'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pyinstaller PyQt5 matplotlib numpy
+
+    - name: Build with PyInstaller
+      run: |
+        pyinstaller --onedir --noupx \
+          --collect-all matplotlib \
+          --collect-all PyQt5 \
+          --exclude-module matplotlib.tests \
+          --name=tRNNs \
+          root/main.py
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: tRNNs-macOS
+        path: dist/tRNNs/
+        include-hidden-files: true
