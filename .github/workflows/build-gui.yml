@@ -40,7 +40,7 @@ jobs:
         path: dist/tRNNs/
         include-hidden-files: true
 
-    build-macos:
+  build-macos:
     runs-on: macos-latest
     steps:
     - name: Checkout
